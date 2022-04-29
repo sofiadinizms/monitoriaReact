@@ -17,13 +17,13 @@ function App() {
 
   return (
     <div className="App">
-      {(typeof backendData.pokemons === 'undefined') ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.pokemons.map((pokemon, i) => (
-          <p key={i}>{pokemon}</p>
-        ))
-      )}
+        {(typeof backendData.pokemons === 'undefined') ? (
+          <p>Loading...</p>
+        ) : (
+          backendData.pokemons.map((pokemon, i) => (
+            <p key={i}>{pokemon}</p>
+          ))
+        )}
     </div>
   );
 }

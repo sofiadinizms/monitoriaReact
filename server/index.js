@@ -1,69 +1,74 @@
 const express = require('express');
 const app = express()
 
-// app.use(express.json())
+app.use(express.json())
 
-// const pokemons = [
-//   {id: 1, name: 'Esgenharia de Software', semester: 4, professor: 'Vinicius Cardoso Garcia'},
-//   {id: 2, name: 'Banco de Dados', semester: 4, professor: 'Robson Fidalgo'},
-//   {id: 3, name: 'Gestão de Processo de Negócio', semester: 4, professor: 'Jéssyka Vilela'},
-//   {id: 4, name: 'Planejamento e Gerenciamento de Projetos', semester: 4, professor: 'Alexandre Vasconcelos'},
-//   {id: 5, name: 'Sistemas de Gestão Empresarial', semester: 4, professor: 'Simone Santos'}
-// ];
+const pokemons = [
+  {id: 1, name: 'Pokemon1', type: 1, attack: 'Ataque1', damage: 1, hp:1},
+  {id: 2, name: 'Pokemon2', type: 2, attack: 'Ataque2', damage: 2, hp:2},
+  {id: 3, name: 'Pokemon3', type: 3, attack: 'Ataque3', damage: 3, hp:3},
+  {id: 4, name: 'Pokemon4', type: 4, attack: 'Ataque4', damage: 4, hp:4},
+  {id: 5, name: 'Pokemon5', type: 5, attack: 'Ataque5', damage: 5, hp:5}
+];
 
 
 app.get('/api', (req, res) => {
-  res.json({"pokemons": [1,2,3,4,5]})
+  res.json({"pokemons":["Pokemon1", "Pokemon2", "Pokemon3"]})
 })
 
-// app.get('/:id', (request, response) => {
-//   const course = courses.find(c => c.id == parseInt(request.params.id))
-//   try {
-//     response.send(course)
-//   } catch (error) {
-//     return response.status(404).send('The course with the given ID was not found')
-//   }
-// })
+app.get('/:id', (request, response) => {
+  const pokemon = pokemons.find(c => c.id == parseInt(request.params.id))
+  try {
+    response.send(pokemon)
+  } catch (error) {
+    return response.status(404).send('The pokemon with the given ID was not found')
+  }
+})
 
-// app.post('/', (request, response) => {
-//   if (!request.body.name || !request.body.semester || !request.body.professor) {
-//     response.status(400).send('Preencha todos os campos')
-//     return;
-//   }
-//   const course = {
-//     id: courses.length + 1,
-//     name: request.body.name,
-//     semester: request.body.semester,
-//     professor: request.body.professor
-//   }
-//   courses.push(course)
-//   return response.send(courses)
-// })
+app.post('/', (request, response) => {
+  if (!request.body.name || !request.body.type || !request.body.attack || !request.body.damage || !request.body.hp) {
+    response.status(400).send('Preencha todos os campos')
+    return;
+  }
+  const pokemon = {
+    id: pokemons.length + 1,
+    name: request.body.name,
+    type: request.body.type,
+    attack: request.body.attack,
+    damage: request.body.damage,
+    hp: request.body.hp
+  }
+  pokemons.push(pokemon)
+  return response.send(pokemons)
+})
 
-// app.put('/:id', (request, response) => {
-//   const course = courses.find(c => c.id === parseInt(request.params.id));
-//   if (!course) return response.status(404).send('Não foi encontrado um curso com esse ID')
+app.put('/:id', (request, response) => {
+  const pokemon = pokemons.find(c => c.id === parseInt(request.params.id));
+  if (!pokemon) return response.status(404).send('Não foi encontrado um curso com esse ID')
 
-//   if (!request.body.name || !request.body.semester || !request.body.professor) {
-//     response.status(400).send('Preencha todos os campos')
-//     return;
-//   }
+  if (!request.body.name || !request.body.type || !request.body.attack || !request.body.damage || !request.body.hp) {
+    response.status(400).send('Preencha todos os campos')
+    return;
+  }
 
-//   course.name = request.body.name
-//   course.semester = request.semester
-//   course.professor = request.professor
-//   response.send(course)
-// })
+  pokemon.name = request.body.name
+  pokemon.type = request.type
+  pokemon.attack = request.attack
+  damage = request.damage
+  hp = request.hp
 
-// app.delete('/:id', (request, response) => {
-//   const course = courses.find(c => c.id === parseInt(request.params.id));
-//   if (!course) return response.status(404).send('Não foi encontrado um curso com esse ID')
+  response.send(pokemon)
+})
 
-//   const index = courses.indexOf(course);
-//   courses.splice(index, 1)
+app.delete('/:id', (request, response) => {
+  const pokemon = pokemons.find(c => c.id === parseInt(request.params.id));
+  if (!pokemon) return response.status(404).send('Não foi encontrado um curso com esse ID')
 
-//   response.send(courses)
-// })
+  const index = pokemons.indexOf(pokemon);
+  pokemons.splice(index, 1)
+
+  response.send(pokemons)
+})
 
 const port = 5000;
 app.listen(port, () => {
